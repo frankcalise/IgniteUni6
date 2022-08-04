@@ -2,6 +2,7 @@ import { Instance, SnapshotIn, SnapshotOut, types } from "mobx-state-tree"
 import { CharacterModel, CharacterSnapshotOut } from "../character/character"
 import { CharacterApi } from "../../services/api/character-api"
 import { withEnvironment } from "../extensions/with-environment"
+import { getRootStore } from "../helpers/get-root-store"
 
 /**
  * Example store containing Rick and Morty characters
@@ -27,6 +28,14 @@ export const CharacterStoreModel = types
       } else {
         __DEV__ && console.tron.log(result.kind)
       }
+    },
+    getSomeData: () => {
+      // return getRootStore(self).propFromStore
+    },
+  }))
+  .views((self) => ({
+    get someProp() {
+      return getRootStore(self).propFromStore
     },
   }))
 
